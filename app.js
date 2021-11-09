@@ -2,17 +2,44 @@ const express = require('express')
 const app = express()
 const port = 3000
 
+app.set('view engine', 'ejs')
+
 app.get('/', (req, res) => {
-    // res.send('Hello World!')
-    res.sendFile('./index.html', { root: __dirname })
+
+    const mahasiswa = [{
+            nama: 'fikri',
+            email: 'fikri@gmail.com'
+        },
+        {
+            nama: 'budi',
+            email: 'budi@gmail.com'
+        },
+        {
+            nama: 'dani',
+            email: 'dani@gmail.com'
+        },
+    ]
+
+    res.render('index', {
+        title: 'Home',
+        aktif: 1,
+        nama: 'fikri',
+        mahasiswa
+    })
 })
 
 app.get('/about', (req, res) => {
-    res.sendFile('./about.html', { root: __dirname })
+    res.render('about', {
+        aktif: 3,
+        title: 'About'
+    })
 })
 
 app.get('/kontak', (req, res) => {
-    res.sendFile('./kontak.html', { root: __dirname })
+    res.render('kontak', {
+        aktif: 2,
+        title: 'kontak'
+    })
 })
 
 app.get('/kontak/:id', (req, res) => {
@@ -27,37 +54,3 @@ app.use('/', (req, res) => {
 app.listen(port, () => {
     console.log(`Example app listening at http://localhost:${port}`)
 })
-
-
-// const fs = require('fs');
-// const http = require('http')
-
-// const render = (path, res) => {
-//     fs.readFile(path, (err, data) => {
-//         if (err) {
-//             res.writeHead(404)
-//             res.write('Error: file tidak ada !!')
-//         } else {
-//             res.write(data)
-//         }
-//         res.end()
-//     })
-// }
-
-// http.createServer((req, res) => {
-//     res.writeHead(200, {
-//         'Content-type': 'text/html',
-//     })
-
-//     const url = req.url
-//     if (url === '/about') {
-//         render('./about.html', res)
-//     } else if (url === '/kontak') {
-//         render('./kontak.html', res)
-//     } else {
-//         render('./index.html', res)
-//     }
-
-// }).listen(3000, () => {
-//     console.log('Server is listening on port 3000...')
-// })
