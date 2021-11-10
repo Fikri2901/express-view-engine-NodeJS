@@ -1,8 +1,10 @@
 const express = require('express')
+const expressLayouts = require('express-ejs-layouts')
 const app = express()
 const port = 3000
 
 app.set('view engine', 'ejs')
+app.use(expressLayouts)
 
 app.get('/', (req, res) => {
 
@@ -21,6 +23,7 @@ app.get('/', (req, res) => {
     ]
 
     res.render('index', {
+        layout: 'template/main-layout',
         title: 'Home',
         aktif: 1,
         nama: 'fikri',
@@ -30,6 +33,7 @@ app.get('/', (req, res) => {
 
 app.get('/about', (req, res) => {
     res.render('about', {
+        layout: 'template/main-layout',
         aktif: 3,
         title: 'About'
     })
@@ -37,6 +41,7 @@ app.get('/about', (req, res) => {
 
 app.get('/kontak', (req, res) => {
     res.render('kontak', {
+        layout: 'template/main-layout',
         aktif: 2,
         title: 'kontak'
     })
